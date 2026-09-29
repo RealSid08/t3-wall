@@ -1,0 +1,34 @@
+name: Feature request
+description: Suggest an idea or improvement for t3-wall.
+title: "[feat] "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        t3-wall is deliberately a **read-only sidecar** — it never writes to or
+        reconfigures T3 Code. Requests that need T3 Code changes are out of scope.
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem does this solve?
+      description: Describe the use case or pain point.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+  - type: checkboxes
+    id: invariants
+    attributes:
+      label: Confirm
+      options:
+        - label: This keeps t3-wall read-only and does not require modifying T3 Code.
+          required: true

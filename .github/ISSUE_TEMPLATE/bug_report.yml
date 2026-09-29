@@ -1,0 +1,58 @@
+name: Bug report
+description: Something in t3-wall is broken or looks wrong.
+title: "[bug] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the report. Please redact anything private (thread titles,
+        project paths, cost figures, hostnames) before pasting output.
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened?
+      description: A clear description of the bug and what you expected instead.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: Steps to reproduce
+      placeholder: |
+        1. Run ./start-server.sh
+        2. Open http://127.0.0.1:4123
+        3. ...
+    validations:
+      required: true
+  - type: input
+    id: t3wall-version
+    attributes:
+      label: t3-wall version / commit
+    validations:
+      required: true
+  - type: input
+    id: t3-version
+    attributes:
+      label: T3 Code version
+  - type: input
+    id: macos
+    attributes:
+      label: macOS version
+      placeholder: "e.g. 27.0"
+    validations:
+      required: true
+  - type: checkboxes
+    id: extras
+    attributes:
+      label: Which optional integrations are in use?
+      options:
+        - label: openusage CLI
+        - label: Peer machines over SSH (T3_WALL_PEERS)
+        - label: OpenUsage iCloud sync (combined usage)
+  - type: textarea
+    id: logs
+    attributes:
+      label: Relevant logs
+      description: "`~/.t3-wall/server.log` and/or browser console. Redact secrets."
+      render: shell

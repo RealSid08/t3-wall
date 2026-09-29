@@ -1,0 +1,55 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    name: Verify (Bun)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Bundle (syntax + module resolution)
+        run: bun build server.ts --target=bun --outdir="$RUNNER_TEMP/t3-wall-build"
+
+      - name: Smoke test the server
+        env:
+          # Keep the smoke test hermetic: no peer SSH, no external CLI, no T3 home.
+          T3_WALL_PORT: "4123"
+          T3_WALL_PEERS: ""
+          T3_WALL_OPENUSAGE: /bin/false
+          T3_WALL_T3_HOME: ${{ runner.temp }}/no-t3-home
+        run: |
+          set -euo pipefail
+          bun run server.ts &
+          server_pid=$!
+          trap 'kill "$server_pid" 2>/dev/null || true' EXIT
+
+          for _ in $(seq 1 40); do
+            curl -fsS http://127.0.0.1:4123/health >/dev/null 2>&1 && break
+            sleep 0.5
+          done
+
+          curl -fsS http://127.0.0.1:4123/health | grep -q '"ok":true'
+          curl -fsS http://127.0.0.1:4123/ | grep -qi '<html'
+          curl -fsS http://127.0.0.1:4123/api/state | python3 -c '
+          import json, sys
+          state = json.load(sys.stdin)
+          for key in ("agents", "settled", "limits", "usage", "source"):
+              assert key in state, f"missing {key}"
+          assert isinstance(state["agents"], list)
+          print("api/state OK")
+          '
+
+      - name: Lint shell scripts
+        run: shellcheck install.sh kiosk.sh start-server.sh
