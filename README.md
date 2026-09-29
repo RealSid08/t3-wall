@@ -1,5 +1,9 @@
 # t3-wall
 
+[![CI](https://github.com/RealSid08/t3-wall/actions/workflows/ci.yml/badge.svg)](https://github.com/RealSid08/t3-wall/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
+[![Runtime: Bun](https://img.shields.io/badge/runtime-Bun-000000?logo=bun)](https://bun.sh)
+
 A read-only ambient dashboard for **[T3 Code](https://t3.codes)** — built *around* T3 Code, never
 inside it. It shows your running agents, subscription limits, combined usage, and settled threads,
 full-screen on a spare (portrait) display.
@@ -25,6 +29,8 @@ for subscription limits.
 │   finished threads              │
 └────────────────────────────────┘
 ```
+
+![t3-wall running full-screen on a portrait display](docs/screenshot.png)
 
 ## Quick start
 
@@ -124,6 +130,27 @@ you build that, keep SSH around as the zero-config fallback.
 - If a peer is unreachable it shows offline (`T3_WALL_PEERS`) and its agents simply drop out.
 - "running" and the elapsed times are exactly what T3 reports; a wedged session can look "running"
   until T3 settles it.
+
+## Troubleshooting
+
+- **The kiosk panel goes black after a while and a power-cycle brings it back.** Some monitors ship
+  a 165 Hz mode that is really an *overclock*; when it drifts the panel drops signal until it
+  re-syncs. Pin the panel to its stable native rate (e.g. 144 Hz) with
+  [`displayplacer`](https://github.com/jakehilborn/displayplacer):
+  `displayplacer "id:<screenId> res:1080x1920 hz:144 ..."`. A small `launchd` job that re-applies
+  the rate whenever it drifts keeps it lit hands-free.
+- **The display sleeps anyway.** `pmset -a displaysleep 0` ("Never" in Lock Screen settings) plus a
+  `caffeinate -dimsu` process is the belt-and-braces pair.
+- **A peer shows offline.** Confirm `ssh -o BatchMode=yes <host>` works from the wall's user; the
+  wall only ever runs a short read-only query there.
+- **Numbers look stale.** Every source is cached for 15–60 s on purpose so an unreachable peer or a
+  slow `openusage` call can never stall the page.
+
+## Contributing
+
+Issues and pull requests are welcome. Please read [`CONTRIBUTING.md`](./CONTRIBUTING.md); the one
+hard rule is that t3-wall stays **read-only** and never modifies T3 Code. This project follows the
+[Contributor Covenant](./CODE_OF_CONDUCT.md). For security reports, see [`SECURITY.md`](./SECURITY.md).
 
 ## Credits
 

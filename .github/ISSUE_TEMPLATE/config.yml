@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Question or discussion
+    url: https://github.com/RealSid08/t3-wall/discussions
+    about: Ask a question or share how you run your wall.
+  - name: T3 Code itself
+    url: https://t3.codes
+    about: Bugs in T3 Code itself belong with T3, not t3-wall.

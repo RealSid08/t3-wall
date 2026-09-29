@@ -4,13 +4,45 @@
   "private": false,
   "description": "A read-only ambient dashboard for T3 Code: running agents, subscription limits, and combined usage across machines.",
   "license": "MIT",
+  "author": "Sidhaarth Krishnan",
   "type": "module",
   "scripts": {
     "start": "bun run server.ts",
+    "build": "bun build server.ts --target=bun --outdir=dist",
     "install-service": "./install.sh",
-    "kiosk": "./kiosk.sh"
+    "kiosk": "./kiosk.sh",
+    "lint": "shellcheck install.sh kiosk.sh start-server.sh"
   },
+  "keywords": [
+    "t3code",
+    "t3-codes",
+    "dashboard",
+    "ai-agents",
+    "coding-agents",
+    "openusage",
+    "bun",
+    "kiosk"
+  ],
+  "files": [
+    "server.ts",
+    "public/",
+    "start-server.sh",
+    "kiosk.sh",
+    "install.sh",
+    "launchd/",
+    "README.md",
+    "LICENSE"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RealSid08/t3-wall.git"
+  },
+  "bugs": {
+    "url": "https://github.com/RealSid08/t3-wall/issues"
+  },
+  "homepage": "https://github.com/RealSid08/t3-wall#readme",
   "engines": {
     "bun": ">=1.4"
-  }
+  },
+  "packageManager": "bun@1.4.2"
 }
