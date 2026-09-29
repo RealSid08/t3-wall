@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+  <dict>
+    <key>Label</key>
+    <string>com.t3wall.kiosk</string>
+    <key>ProgramArguments</key>
+    <array>
+      <string>__DIR__/kiosk.sh</string>
+    </array>
+    <key>RunAtLoad</key>
+    <true/>
+    <!-- Restart only if the browser crashes; a normal quit frees the display. -->
+    <key>KeepAlive</key>
+    <dict>
+      <key>SuccessfulExit</key>
+      <false/>
+    </dict>
+    <key>StandardOutPath</key>
+    <string>__HOME__/.t3-wall/kiosk.log</string>
+    <key>StandardErrorPath</key>
+    <string>__HOME__/.t3-wall/kiosk.log</string>
+  </dict>
+</plist>

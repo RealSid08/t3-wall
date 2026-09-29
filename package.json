@@ -1,0 +1,16 @@
+{
+  "name": "t3-wall",
+  "version": "0.1.0",
+  "private": false,
+  "description": "A read-only ambient dashboard for T3 Code: running agents, subscription limits, and combined usage across machines.",
+  "license": "MIT",
+  "type": "module",
+  "scripts": {
+    "start": "bun run server.ts",
+    "install-service": "./install.sh",
+    "kiosk": "./kiosk.sh"
+  },
+  "engines": {
+    "bun": ">=1.4"
+  }
+}

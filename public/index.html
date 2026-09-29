@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#0a0a0b" />
+    <title>T3 Wall</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div id="app" class="wall">
+      <header class="top">
+        <div class="brand">
+          <div class="logo">T3</div>
+          <div class="brand-text">
+            <div class="brand-title">Agent Wall</div>
+            <div class="brand-sub" id="source">connecting…</div>
+          </div>
+        </div>
+        <div class="clock">
+          <div class="clock-time" id="clock">--:--</div>
+          <div class="clock-date" id="date"></div>
+        </div>
+        <div class="status" id="status">
+          <span class="dot" id="statusDot"></span>
+          <span id="statusText">—</span>
+          <span id="peers" class="peers"></span>
+        </div>
+      </header>
+
+      <main id="main">
+        <section class="section">
+          <h2>Active agents <span class="count" id="agentCount"></span></h2>
+          <div id="agents" class="agents"></div>
+        </section>
+
+        <section class="section">
+          <h2>Limits</h2>
+          <div id="limits" class="limits"></div>
+        </section>
+
+        <section class="section">
+          <h2>Usage</h2>
+          <div id="usage" class="usage"></div>
+        </section>
+
+        <section class="section">
+          <h2>Settled</h2>
+          <div id="settled" class="recent"></div>
+        </section>
+      </main>
+
+      <footer class="foot">
+        <span id="updated">—</span>
+        <span class="foot-note">read-only · T3 Code untouched</span>
+      </footer>
+    </div>
+    <script src="/icons.js"></script>
+    <script src="/app.js"></script>
+  </body>
+</html>
